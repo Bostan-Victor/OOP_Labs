@@ -1,4 +1,4 @@
-import DirectoryMonitor
+from DirectoryMonitor import DirectoryMonitor
 
 class Main:
     def __init__(self):
@@ -11,7 +11,7 @@ class Main:
         while inp != 'exit':
             inp = input('Choose an option(commit, info <filename>, status, exit): ').strip().lower()
             if inp == 'commit':
-                pass
+                self.monitor.commit()
             elif inp.startswith('info '):
                 pass
             elif inp == 'status':
