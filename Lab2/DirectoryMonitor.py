@@ -73,7 +73,7 @@ class DirectoryMonitor:
 
 
     def get_file_info(self, filename):
-        file_instance = self.get_file_instance(self.directory, filename)
+        file_instance = self.get_file_instance(filename)
         info = file_instance.info()
         for key, value in info.items():
             print(f'{key}: {value}')
