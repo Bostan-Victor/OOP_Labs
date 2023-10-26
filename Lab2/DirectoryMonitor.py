@@ -26,9 +26,9 @@ class DirectoryMonitor:
                     'path': path
                 }
         return files_stats
+    
 
-
-    def commit(self):
+    def detect_changes(self):
         current_files_stats = self.get_files_stats()
         
         file_changes = {}
@@ -47,18 +47,29 @@ class DirectoryMonitor:
             if filename not in current_files_stats:
                 file_changes[filename] = 'Deleted'
 
+        return file_changes, current_files_stats
+
+
+    def commit(self):
+        file_changes, current_files_stats = self.detect_changes()
+
         changes_detected = any(value != 'No Change' for value in file_changes.values())
         
         if changes_detected:
             self.snapshot_time = time.time()
             self.files_stats = current_files_stats
-            print(f'\nNew snapshot created at: {datetime.fromtimestamp(self.snapshot_time).strftime("%Y-%m-%d %H:%M:%S")}')
-            for filename, change in file_changes.items():
-                print(f'{filename} - {change}')
-            print()
+            print(f'\nNew snapshot created at: {datetime.fromtimestamp(self.snapshot_time).strftime("%Y-%m-%d %H:%M:%S")}\n')
         else:
             print('\nNo changes detected!\n')
 
+
+    def status(self):
+        file_changes, _ = self.detect_changes()
+        print(f'\nStatus as of: {datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d %H:%M:%S")}')
+        for filename, change in file_changes.items():
+            print(f'{filename} - {change}')
+        print()
+        
 
     def get_file_instance(self, filename):
         ext = filename.split('.')[-1].lower()

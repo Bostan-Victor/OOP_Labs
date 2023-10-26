@@ -16,7 +16,7 @@ class Main:
                 filename = inp.split(' ')[1]
                 self.monitor.get_file_info(filename)
             elif inp == 'status':
-                pass
+                self.monitor.status()
 
 
 if __name__ == '__main__':
