@@ -1,6 +1,11 @@
 import os
 import time
 from datetime import datetime
+from BaseFile import BaseFile
+from TextFile import TextFile
+from ImageFile import ImageFile
+from ProgramFile import ProgramFile
+
 
 class DirectoryMonitor:
     def __init__(self, directory):
@@ -53,3 +58,22 @@ class DirectoryMonitor:
             print()
         else:
             print('\nNo changes detected!\n')
+
+
+    def get_file_instance(self, filename):
+        ext = filename.split('.')[-1].lower()
+        if ext == 'txt':
+            return TextFile(os.path.join(self.directory, filename))
+        elif ext in ['png', 'jpg']:
+            return ImageFile(os.path.join(self.directory, filename))
+        elif ext in ['py', 'java']:
+            return ProgramFile(os.path.join(self.directory, filename))
+        else:
+            return BaseFile(os.path.join(self.directory, filename))
+
+
+    def get_file_info(self, filename):
+        file_instance = self.get_file_instance(self.directory, filename)
+        info = file_instance.info()
+        for key, value in info.items():
+            print(f'{key}: {value}')

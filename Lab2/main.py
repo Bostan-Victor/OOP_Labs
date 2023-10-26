@@ -13,7 +13,8 @@ class Main:
             if inp == 'commit':
                 self.monitor.commit()
             elif inp.startswith('info '):
-                pass
+                filename = inp.split(' ')[1]
+                self.monitor.get_file_info(filename)
             elif inp == 'status':
                 pass
 
