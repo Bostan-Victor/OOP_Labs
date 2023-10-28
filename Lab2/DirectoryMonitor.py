@@ -8,10 +8,11 @@ from ProgramFile import ProgramFile
 
 
 class DirectoryMonitor:
-    def __init__(self, directory):
+    def __init__(self, directory, program_loop_instance):
         self.directory = directory
         self.snapshot_time = time.time()
         self.files_stats = self.get_files_stats()
+        self.program_loop_instance = program_loop_instance
 
 
     def get_files_stats(self):
@@ -59,6 +60,7 @@ class DirectoryMonitor:
             self.snapshot_time = time.time()
             self.files_stats = current_files_stats
             print(f'\nNew snapshot created at: {datetime.fromtimestamp(self.snapshot_time).strftime("%Y-%m-%d %H:%M:%S")}\n')
+            self.program_loop_instance.notified_files.clear()
         else:
             print('\nNo changes detected!\n')
 
