@@ -24,3 +24,6 @@ class Faculty:
     # Append a new object to the students list
     def append_to_students(self, student):
         self.students.append(student)
+
+    def meth(self):
+        pass
