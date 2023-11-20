@@ -1,8 +1,9 @@
 from array_stack import ArrayStack
 from linked_stack import LinkedStack
-from fixed_array_stack import FixedArrayStack
 from array_queue import ArrayQueue
 from linked_queue import LinkedQueue
+from circular_queue import CircularQueue  
+from dict_stack import DictStack  
 
 def test_stacks():
     print("Testing ArrayStack:")
@@ -19,16 +20,15 @@ def test_stacks():
     print(linked_stack.pop())  # Expected output: 'b'
     print(linked_stack.peek())  # Expected output: 'a'
 
-    print("\nTesting FixedArrayStack:")
-    fixed_array_stack = FixedArrayStack(3)
-    fixed_array_stack.push('x')
-    fixed_array_stack.push('y')
-    fixed_array_stack.push('z')
-    print(fixed_array_stack.pop())  # Expected output: 'z'
-    print(fixed_array_stack.peek())  # Expected output: 'y'
+    print("\nTesting DictStack:")
+    dict_stack = DictStack()
+    dict_stack.push('key1', 'value1')
+    dict_stack.push('key2', 'value2')
+    print(dict_stack.pop())  # Expected output: ('key2', 'value2')
+    print(dict_stack.peek())  # Expected output: ('key1', 'value1')
 
 def test_queues():
-    print("Testing ArrayQueue:")
+    print("\nTesting ArrayQueue:")
     array_queue = ArrayQueue(4)
     array_queue.enqueue('apple')
     array_queue.enqueue('banana')
@@ -41,6 +41,17 @@ def test_queues():
     linked_queue.enqueue(20)
     print(linked_queue.dequeue())  # Expected output: 10
     print(linked_queue.peek())  # Expected output: 20
+
+    print("\nTesting CircularQueue:")
+    circular_queue = CircularQueue(3)
+    circular_queue.enqueue('red')
+    circular_queue.enqueue('green')
+    circular_queue.enqueue('blue')
+    print(circular_queue.dequeue())  # Expected output: 'red'
+    print(circular_queue.peek())  # Expected output: 'green'
+    circular_queue.enqueue('yellow')
+    print(circular_queue.dequeue())  # Expected output: 'green'
+    print(circular_queue.peek())  # Expected output: 'blue'
 
 if __name__ == "__main__":
     test_stacks()
